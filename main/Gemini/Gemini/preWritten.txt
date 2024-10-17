@@ -1,0 +1,1 @@
+Make a astrics pyramid with sudo code
