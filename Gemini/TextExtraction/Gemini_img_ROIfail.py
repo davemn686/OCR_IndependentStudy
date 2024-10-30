@@ -8,7 +8,7 @@ import time
 genai.configure(api_key="AIzaSyDLt7t45guqJn21t9XFJYG7CQJnfmlxsuw")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-filePath = "..\\images\\HandWritten.png"
+filePath = "..\\..\\..\\images\\licensePlate.jpg"
 
 img = cv.imread(filePath)
 height, width = img.shape[:2]
@@ -41,7 +41,7 @@ def GenerateText(filePath):
 
 def run(filePath):
     try:
-        time.sleep(3)
+        time.sleep(10)
         cordinates = GenerateCoordinates(filePath)
         text = GenerateText(filePath)
         
@@ -58,6 +58,12 @@ def run(filePath):
         # Convert extracted numbers to integers
         y1, y2, x1, x2 = map(int, numbers)
         print(x1, y1, x2, y2)
+
+        # Convert coordinates to original dimensions
+        x1 = int(x1 / 1000 * width) -20
+        y1 = int(y1 / 1000 * height) -20
+        x2 = int(x2 / 1000 * width) +20
+        y2 = int(y2 / 1000 * height) +20
             
         # Now extract the ROI, ensuring coordinates are within image bounds
         if 0 <= y1 < y2 <= img.shape[0] and 0 <= x1 < x2 <= img.shape[1]:
@@ -68,20 +74,7 @@ def run(filePath):
             # Write image to file
             newFilePath = f'..\\images\\roi_image1.jpg'
             cv.imwrite(newFilePath, roi)
-
-            # Check if the ROI contains text
-            ROI_Text = GenerateText(newFilePath)
-            print(f"ROI Text: {ROI_Text}")
             
-            if ROI_Text == "no":
-                print("No text in ROI image, ...Rerunning")
-                run(filePath)
-            elif ROI_Text == text:
-                print("Both texts are equal")
-            else:
-                print("Wrong text output, ...Rerunning")
-                run(filePath)
-
         else:
             print(f"Coordinates out of bounds in iteration, ...Rerunning")
             run(filePath)

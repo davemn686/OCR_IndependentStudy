@@ -6,7 +6,7 @@ import re
 # Configure the API key
 genai.configure(api_key="AIzaSyDLt7t45guqJn21t9XFJYG7CQJnfmlxsuw")
 model = genai.GenerativeModel("gemini-1.5-flash")
-filePath = "..\\images\\licensesPlate.jpg"
+filePath = "../../../images\captcha.png"
 
 # Load the image
 img = cv.imread(filePath)

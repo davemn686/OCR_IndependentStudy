@@ -41,21 +41,10 @@ if camera_input is not None:
     # Generate content with the Gemini model
     result = model.generate_content([myfile, "\n", 'WHAT TEXT IS IN THIS IMAGE'])
 
-    expected = ""
-
-    # Read expected words from a file
-    with open('Expected.txt', 'r') as word:
-        expected = word.read()
-
-    # Grade the result
-    #grade = model.generate_content("HOW MUCH DOES Expected [" + expected + "] equal result [" + result.text + "] Return a percentage and the places it doesn't match if any. NOTHING ELSE")
 
     # Correct the result
     correctedVer = model.generate_content("Correct the result [" + result.text + "] Return the corrected version. NOTHING ELSE.")
 
-    # Display results in the Streamlit app
-    #st.write("====Expected Words====")
-    #st.write(expected)
 
     st.write("====Result after OCR with Gemini====")
     st.write(result.text)
@@ -63,5 +52,3 @@ if camera_input is not None:
     st.write("====Correction with Gemini====")
     st.write(correctedVer.text)
 
-    #st.write("====Grade====")
-    #st.write(grade.text)

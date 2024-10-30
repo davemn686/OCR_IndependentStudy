@@ -15,4 +15,4 @@ else:
 	output_path = 'output_image.jpg'
 	cv2.imwrite(output_path, image)
 	
-	print(f"Image saved to {output_path}")
+	#print(f"Image saved to {output_pastreth}")
